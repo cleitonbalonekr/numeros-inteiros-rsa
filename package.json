@@ -6,7 +6,7 @@
   "author": "Cleiton Baloneker <cleitonbaloneker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev  src/index.ts"
+    "start": "ts-node-dev --respawn --transpile-only  src/mdc/index"
   },
   "devDependencies": {
     "ts-node-dev": "^2.0.0",
