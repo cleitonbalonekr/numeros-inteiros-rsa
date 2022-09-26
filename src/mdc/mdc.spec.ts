@@ -1,4 +1,5 @@
 import { mdc } from './mdc';
+
 describe('MDC', () => {
   it('Should return a mdc with equal params', () => {
     const response = mdc(10, 10);
