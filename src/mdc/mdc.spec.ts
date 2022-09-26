@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import { mdc } from './mdc';
 describe('MDC', () => {
   it('Should return a mdc with equal params', () => {
