@@ -6,7 +6,7 @@
   "author": "Cleiton Baloneker <cleitonbaloneker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only  src/mdc/index",
+    "start": "ts-node-dev --respawn --transpile-only  src/aritimetica-modular/index.ts",
     "test": "vitest"
   },
   "devDependencies": {
