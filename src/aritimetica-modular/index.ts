@@ -34,11 +34,9 @@ export function potenciaModular({base,expoente,modulo}:PotenciaInput){
         })
         array.push(newMod)
         if(newMod===0){
-            return array.fill(0,index,expoente)
+            return [...array,...Array(expoente-index-1).fill(0)]
         }
-        if(newMod === 1){
-            return array
-        }
+       
         
     }
  
@@ -51,7 +49,7 @@ export function potenciaModular({base,expoente,modulo}:PotenciaInput){
 //}) )
 
 console.table(potenciaModular({
-    base:10,
-    expoente:8,
-    modulo:7
+    base:2,
+    expoente:9,
+    modulo:8
 }))
