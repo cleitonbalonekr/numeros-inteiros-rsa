@@ -6,7 +6,7 @@
   "author": "Cleiton Baloneker <cleitonbaloneker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only  src/aritimetica-modular/index.ts",
+    "start": "ts-node-dev --respawn --transpile-only  src/aritimetica-modular/inversa-modular.ts",
     "test": "vitest"
   },
   "devDependencies": {
