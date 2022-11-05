@@ -1,38 +1,80 @@
-import { mdc } from "../mdc/mdc";
+/* eslint-disable no-plusplus */
+/**
+ *  Algoritmo euclidiano sxtendido
+ *
+ * entrada A e B
+ *  Quero achar (ALFA) e (BETA)
+ *
+ *  r = a x + b y
+ *
+ *  a = ax-1 + by-1
+ *  b = ax0 + by0
+ *
+ * até encontrar o resto 0
+ *
+ * rn = 0, verificar linha anterior: resto = MDC x = ALFA y = BETA
+ *
+ * a não pode ser divivel por b (o sistema deve retornar 10 , 1 , -1), de tal forma q nem alfa e beta sejam 0
+ *
+ * como seria o resultado se b fosse divisel por a
+ */
 
-export function euclidianoEstendidoBackUp(a: number, b: number) {
-  const x = [1, 0];
-  const y = [0, 1];
-  let resto = b;
-  while (b !== 0) {
-    const q = Math.floor(a / b);
-    resto = a % b;
-    if (resto === 0) {
-      const mdc1 = mdc(a,b)
-      return {
-        //mdc: 10,
-        mdc:mdc1,
-        a: 1,
-        b: -(a - mdc1)/b
-      };
+import { mdc as mdcCalc } from '../mdc/mdc';
+
+export const calculaEuclidianoEstendido = (a: number, b: number) => {
+  const matriz = [
+    [a, '*', 1, 0],
+    [b, '*', 0, 1]
+  ];
+
+  let i = 0;
+  // eslint-disable-next-line no-constant-condition
+  while (1) {
+    const r = (matriz[i][0] as number) % (matriz[i + 1][0] as number);
+    const q = Math.floor(
+      (matriz[i][0] as number) / (matriz[i + 1][0] as number)
+    );
+    let x = (matriz[i][2] as number) - q * (matriz[i + 1][2] as number);
+    const y = (matriz[i][3] as number) - q * (matriz[i + 1][3] as number);
+
+    if (a % b === 0) {
+      x = 1;
+      const mdc = mdcCalc(a, b);
+      const y2 = -(x * a - mdc) / b;
+
+      matriz.push([mdc, q, x, y2]);
+      break;
+    } else {
+      i++;
+      matriz.push([r, q, x, y]);
     }
-    a = b;
-    b = resto;
-    //const newX = x.at(-2)! - q * x.at(-1)!;
-    const newX = (x[x.length-2] - q) *( x[x.length-1]);
-    x.push(newX);
-    //const newY = y.at(-2)! - q * y.at(-1)!;
-    const newY = (y[y.length-2] - q) *( y[y.length-1]);
-    y.push(newY);
+
+    if (r === 0) break;
   }
 
+  // console.log(matriz)
+
+  const resultado =
+    a % b
+      ? [
+          matriz[matriz.length - 2][0],
+          matriz[matriz.length - 2][2],
+          matriz[matriz.length - 2][3]
+        ]
+      : [
+          matriz[matriz.length - 2][0],
+          matriz[matriz.length - 1][2],
+          matriz[matriz.length - 1][3]
+        ];
+
   return {
-    mdc: a,
-    a: x[x.length-2],
-    b: y[y.length-2]
+    mdc: resultado[0] as number,
+    a: resultado[1] as number,
+    b: resultado[2] as number
   };
-}
+};
 
-export function euclidianoEstendido(){
-
-}
+// calculaEuclidianoEstendido(14, 35);
+// calculaEuclidianoEstendido(252, 180);
+// calculaEuclidianoEstendido(6643, 2873);
+// calculaEuclidianoEstendido(50, 10);

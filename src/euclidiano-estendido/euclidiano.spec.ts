@@ -1,8 +1,8 @@
-import { euclidianoEstendido } from './euclidiano-estendido';
+import { calculaEuclidianoEstendido } from './euclidiano-estendido';
 
 describe('euclidianoEstendido', () => {
   it('should return correct mdc, a and b', () => {
-    const response = euclidianoEstendido(20, 10);
+    const response = calculaEuclidianoEstendido(20, 10);
     expect(response).toEqual({
       mdc: 10,
       a: 1,
@@ -10,11 +10,12 @@ describe('euclidianoEstendido', () => {
     });
   });
   it('should return correct mdc, a and b', () => {
-    const response = euclidianoEstendido(1234, 54);
+    const response = calculaEuclidianoEstendido(1234, 54);
+
     expect(response).toEqual({
-      mdc: 10,
-      a: 1,
-      b: -2
+      mdc: 2,
+      a: -7,
+      b: 160
     });
   });
 });

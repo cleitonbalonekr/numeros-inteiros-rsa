@@ -18,20 +18,20 @@
  * como seria o resultado se b fosse divisel por a
  */
 
-const MDC = require("../mdc/mdc");
+const MDC = require('../src/mdc/mdc');
 
 const calculaEuclidianoEstendido = (a, b) => {
-  let matriz = [
-    [a, "*", 1, 0],
-    [b, "*", 0, 1],
+  const matriz = [
+    [a, '*', 1, 0],
+    [b, '*', 0, 1]
   ];
 
   let i = 0;
   while (1) {
-    let r = matriz[i][0] % matriz[i + 1][0];
-    let q = Math.floor(matriz[i][0] / matriz[i + 1][0]);
+    const r = matriz[i][0] % matriz[i + 1][0];
+    const q = Math.floor(matriz[i][0] / matriz[i + 1][0]);
     let x = matriz[i][2] - q * matriz[i + 1][2];
-    let y = matriz[i][3] - q * matriz[i + 1][3];
+    const y = matriz[i][3] - q * matriz[i + 1][3];
 
     if (a % b === 0) {
       x = 1;
@@ -55,12 +55,12 @@ const calculaEuclidianoEstendido = (a, b) => {
       ? [
           matriz[matriz.length - 2][0],
           matriz[matriz.length - 2][2],
-          matriz[matriz.length - 2][3],
+          matriz[matriz.length - 2][3]
         ]
       : [
           matriz[matriz.length - 2][0],
           matriz[matriz.length - 1][2],
-          matriz[matriz.length - 1][3],
+          matriz[matriz.length - 1][3]
         ];
 
   return resultado;
