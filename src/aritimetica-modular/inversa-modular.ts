@@ -7,7 +7,7 @@ type Input = {
 };
 
 export function inversaModular({ beta, n }: Input) {
-  const { mdc, b } = calculaEuclidianoEstendido(beta, n);
+  const { mdc, b } = calculaEuclidianoEstendido(n, beta);
   if (mdc === 1) {
     let response = b;
     while (response < 0) {
@@ -47,15 +47,18 @@ export function inversaModular({ beta, n }: Input) {
 // console.log('euclidiano estedido',euclidianoEstendido(2, 15));
 
 // const n = 7;
-// const array = [];
-// for (let index = 1; index < n; index++) {
-//   const element = inversaModular({
-//     beta: index,
-//     n
-//   });
-//   array.push({
-//     i: index,
-//     b: element
-//   });
-// }
-// console.table(array);
+export function listOfInversaModular(n: number) {
+  const array = [];
+  for (let index = 1; index < n; index++) {
+    const element = inversaModular({
+      beta: index,
+      n
+    });
+    array.push({
+      i: index,
+      b: element
+    });
+  }
+  return array;
+}
+// console.table(listOfInversaModular(7));
