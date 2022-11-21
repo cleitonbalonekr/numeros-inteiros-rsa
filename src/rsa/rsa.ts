@@ -11,3 +11,8 @@ export const codeToCaracter = (input: number) => {
   const caracter = input - KEY;
   return String.fromCharCode(caracter);
 };
+console.table({
+  x: digitToCaracter(5),
+  inv: caracterToNumber('5'),
+  code: codeToCaracter(222)
+});
