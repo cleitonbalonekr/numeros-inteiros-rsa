@@ -42,15 +42,34 @@ export function potenciaModular({ base, expoente, modulo }: PotenciaInput) {
   return array;
 }
 
+export function potenciaModularPositiveValues({
+  base,
+  expoente,
+  modulo
+}: PotenciaInput) {
+  const array = [1];
+  const mod1 = base % modulo;
+  for (let index = 0; index < expoente; index++) {
+    const newValue = mod1 * array[index];
+    const newMod = newValue % modulo;
+    array.push(newMod);
+    if (newMod === 0) {
+      return [...array, ...Array(expoente - index - 1).fill(0)];
+    }
+  }
+
+  return array;
+}
+
 // console.log('reponse: x = 8 mod22  -> ',congruenciaModular({
 //  modulo:22,
 // value:8
 // }) )
 
-console.table(
-  potenciaModular({
-    base: 2,
-    expoente: 9,
-    modulo: 8
-  })
-);
+// console.table(
+//   potenciaModular({
+//     base: 10,
+//     expoente: 7,
+//     modulo: 15
+//   })
+// );
