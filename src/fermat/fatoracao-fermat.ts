@@ -35,9 +35,8 @@ export function fermat(input: number) {
     return { a: 1, b: input };
   }
 
+  let x = Math.floor(Math.sqrt(input));
   while (1) {
-    let x = Math.floor(Math.sqrt(input));
-
     if (input === x * x) {
       return {
         a: x,

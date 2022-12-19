@@ -15,6 +15,9 @@ export const codeToCaracter = (input: number) => {
   const caracter = input - KEY;
   return String.fromCharCode(caracter);
 };
+
+export const blocoToCaracter = (input: number[]) => input.map(codeToCaracter);
+
 // console.table({
 //   x: digitToCaracter(5),
 //   inv: caracterToNumber('5'),
@@ -59,4 +62,4 @@ export function encryptRSA(message: string, n: number) {
   }
   return encrypted + newArray;
 }
-console.log(encryptRSA(wordToCode('caldo'), 209));
+// console.log(encryptRSA(wordToCode('caldo'), 209));
