@@ -1,13 +1,13 @@
 import { inversaModular } from '../aritimetica-modular/inversa-modular';
 import { potenciaModularPositiveValues } from '../aritimetica-modular/potencia-modular';
-import { encrypt, getFI } from '../aula10';
+import {  getNumberFI } from '../aula10';
 import { blocoToCaracter } from '../rsa/rsa';
 
 export function getPrivateKey(e: number, n: number) {
-  const φ = getFI(n);
+  const fi = getNumberFI(n);
   const result = inversaModular({
     beta: e,
-    n: φ
+    n: fi
   });
   return result;
 }
@@ -39,11 +39,8 @@ export const decryptRSA = (blocos: number[], n: number, d: number) => {
   };
 };
 
-const nValue = 209;
-const encryptedResponse = encrypt('caldo', nValue);
-console.log('encryptedResponse', encryptedResponse);
-const privateKey = getPrivateKey(encryptedResponse.e, nValue);
-console.log(decryptRSA(encryptedResponse.encrypted, nValue, privateKey));
-// console.log(
-//   decryptRSA([4746, 8214, 9372, 9009, 8198], 10403, getPrivateKey(8743, 10403))
-// );
+// const nValue = 209;
+// const encryptedResponse = encrypt('caldo', nValue);
+// console.log('encryptedResponse', encryptedResponse);
+// const privateKey = getPrivateKey(encryptedResponse.e, nValue);
+// console.log(decryptRSA(encryptedResponse.encrypted, nValue, privateKey));
