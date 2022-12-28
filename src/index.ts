@@ -1,33 +1,65 @@
-import fs from 'fs';
-import { encrypt } from './aula10';
+import { encrypt, getE } from './aula10';
 import { decryptRSA, getPrivateKey } from './aula11/descriptography';
 
-const ENCRYPTED_PATH = 'src/generated/encrypted/encrypted.txt';
-const DECRYPTED_PATH = 'src/generated/decrypted/decrypted.txt';
-
-function ecryptFile(n: number) {
-  const data = fs.readFileSync('src/plain.txt', 'utf8');
+export function ecryptFile(data: string, n: number) {
   const encryptResponse = encrypt(data, n);
-  fs.writeFileSync(ENCRYPTED_PATH, encryptResponse.encrypted.join('-'));
-  return encryptResponse.e;
+  return {
+    e: encryptResponse.e,
+    encrypted: encryptResponse.encrypted.join('-')
+  };
 }
-function decryptFile(n: number, e: number) {
-  const dataEncrypted = fs.readFileSync(ENCRYPTED_PATH, 'utf8');
+export function decryptFile(n: number, e: number, dataEncrypted: string) {
   const decryptedResponse = decryptRSA(
     dataEncrypted.split('-') as unknown as number[],
     n,
     getPrivateKey(e, n)
   );
-  fs.writeFileSync(DECRYPTED_PATH, decryptedResponse.decryptedMessage.join(''));
+  return {
+    decrypted: decryptedResponse.decryptedMessage.join('')
+  };
 }
 
-function main() {
-  try {
-    const n = 209;
-    const publicKey = ecryptFile(n);
-    decryptFile(n, publicKey);
-  } catch (err) {
-    console.error(err);
-  }
+async function writeFile(fileHandle: any, contents: string) {
+  // Create a FileSystemWritableFileStream to write to.
+  const writable = await fileHandle.createWritable();
+  // Write the contents of the file to the stream.
+  await writable.write(contents);
+  // Close the file and write the contents to disk.
+  await writable.close();
 }
-main();
+async function getNewFileHandle(suggestedName?: string) {
+  const options = {
+    suggestedName,
+    types: [
+      {
+        description: 'Text Files',
+        accept: {
+          'text/plain': ['.txt']
+        }
+      }
+    ]
+  };
+  const handle = await (window as any).showSaveFilePicker(options);
+  return handle;
+}
+
+const ecryptButton = document.getElementById('encrypt') as HTMLElement;
+const decryptButton = document.getElementById('decrypt') as HTMLElement;
+const n = 209;
+ecryptButton.onclick = async () => {
+  const [fileHandle] = await (window as any).showOpenFilePicker();
+  const file = await fileHandle.getFile();
+  const contents = await file.text();
+  const { encrypted } = ecryptFile(contents, n);
+  const writeFileHandle = await getNewFileHandle('encrypted.txt');
+  writeFile(writeFileHandle, encrypted);
+};
+decryptButton.onclick = async () => {
+  const [fileHandle] = await (window as any).showOpenFilePicker();
+  const file = await fileHandle.getFile();
+  const contents = await file.text();
+  const publicKey = getE(n);
+  const { decrypted } = decryptFile(n, publicKey, contents);
+  const writeFileHandle = await getNewFileHandle('dcrypted.txt');
+  writeFile(writeFileHandle, decrypted);
+};
