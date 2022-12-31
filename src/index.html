@@ -4,13 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Criptografia</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Criptografia RSA</title>
   </head>
   <body>
-    <div>
-      <button id="encrypt">Criptografar</button>
-      <button id="decrypt">Descriptografar</button>
-    </div>
+    <main id="root">
+      <h1>Números Inteiros e Criptografia RSA</h1>
+      <br />
+      <p>
+        Para criptografar, clique em "criptografar" e selecione o arquivo será
+        criptografado, em seguida, você deverá escolher o local para salvar o
+        arquivo criptografado
+      </p>
+      <br />
+      <p>
+        Para descritpgrafar, clique em "descriptografar" e selecione o arquivo
+        criptografado, em seguida, você deverá escolher o local para salvar o
+        arquivo descriptografado
+      </p>
+      <br />
+      <div class="button-container">
+        <button id="encrypt">Criptografar</button>
+        <button id="decrypt">Descriptografar</button>
+      </div>
+
+      <footer id="footer">
+        Projeto desenvolvido pelos alunos: Cleiton da Silva Baloneker e Matheus
+        de Castro Pelegrino
+      </footer>
+    </main>
   </body>
   <script type="module" src="./index.ts"></script>
 </html>
