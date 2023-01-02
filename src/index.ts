@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { encrypt, getE } from './aula10';
 import { decryptRSA, getPrivateKey } from './aula11/descriptography';
 
@@ -43,10 +44,16 @@ async function getNewFileHandle(suggestedName?: string) {
   return handle;
 }
 
-const ecryptButton = document.getElementById('encrypt') as HTMLElement;
+const encryptButton = document.getElementById('encrypt') as HTMLElement;
 const decryptButton = document.getElementById('decrypt') as HTMLElement;
-const n = 209;
-ecryptButton.onclick = async () => {
+
+const getN = () =>
+  Number((document.getElementById('n-value') as HTMLInputElement).value);
+const throwNError = () => alert('Selecione o valor N');
+
+encryptButton.onclick = async () => {
+  const n = getN();
+  if (!n) return throwNError();
   const [fileHandle] = await (window as any).showOpenFilePicker();
   const file = await fileHandle.getFile();
   const contents = await file.text();
@@ -55,6 +62,8 @@ ecryptButton.onclick = async () => {
   writeFile(writeFileHandle, encrypted);
 };
 decryptButton.onclick = async () => {
+  const n = getN();
+  if (!n) return throwNError();
   const [fileHandle] = await (window as any).showOpenFilePicker();
   const file = await fileHandle.getFile();
   const contents = await file.text();
