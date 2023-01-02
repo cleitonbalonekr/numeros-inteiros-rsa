@@ -23,11 +23,23 @@
         arquivo descriptografado
       </p>
       <br />
-      <label for="n-value">Digite o N:</label>
-      <input id="n-value" type="number" placeholder="exemplo 209" />
+      <div class="data-content">
+        <div class="input-container">
+          <label for="n-value">Digite o N:</label>
+          <input id="n-value" type="number" placeholder="exemplo 209" />
+        </div>
+        <div class="input-container">
+          <label for="n-value">Digite o E:</label>
+          <input
+            id="e-value"
+            type="number"
+            placeholder="O E é necessário para descriptografar"
+          />
+        </div>
+      </div>
       <div class="button-container">
-        <button id="encrypt">Criptografar</button>
-        <button id="decrypt">Descriptografar</button>
+        <button type="button" id="encrypt">Criptografar</button>
+        <button type="button" id="decrypt">Descriptografar</button>
       </div>
 
       <footer id="footer">

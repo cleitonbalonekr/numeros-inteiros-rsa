@@ -1,5 +1,6 @@
+/* eslint-disable no-alert */
 /* eslint-disable consistent-return */
-import { encrypt, getE } from './aula10';
+import { encrypt } from './aula10';
 import { decryptRSA, getPrivateKey } from './aula11/descriptography';
 
 export function ecryptFile(data: string, n: number) {
@@ -49,26 +50,31 @@ const decryptButton = document.getElementById('decrypt') as HTMLElement;
 
 const getN = () =>
   Number((document.getElementById('n-value') as HTMLInputElement).value);
-const throwNError = () => alert('Selecione o valor N');
+const getEFromInput = () =>
+  Number((document.getElementById('e-value') as HTMLInputElement).value);
+
+const throwNError = (key: string) => alert(`Selecione o valor${key}`);
 
 encryptButton.onclick = async () => {
   const n = getN();
-  if (!n) return throwNError();
+  if (!n) return throwNError('N');
   const [fileHandle] = await (window as any).showOpenFilePicker();
   const file = await fileHandle.getFile();
   const contents = await file.text();
-  const { encrypted } = ecryptFile(contents, n);
+  const { encrypted, e } = ecryptFile(contents, n);
   const writeFileHandle = await getNewFileHandle('encrypted.txt');
   writeFile(writeFileHandle, encrypted);
+  alert(`Anote o E: ${e}\n ele é necessário para descriptografar`);
 };
 decryptButton.onclick = async () => {
   const n = getN();
-  if (!n) return throwNError();
+  const e = getEFromInput();
+  if (!n) return throwNError('N');
+  if (!e) return throwNError('E');
   const [fileHandle] = await (window as any).showOpenFilePicker();
   const file = await fileHandle.getFile();
   const contents = await file.text();
-  const publicKey = getE(n);
-  const { decrypted } = decryptFile(n, publicKey, contents);
+  const { decrypted } = decryptFile(n, e, contents);
   const writeFileHandle = await getNewFileHandle('dcrypted.txt');
   writeFile(writeFileHandle, decrypted);
 };
